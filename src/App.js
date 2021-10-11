@@ -7,6 +7,7 @@ import PostList from './components/PostList';
 import Pagination from './components/Pagination';
 import PostFiltersForm from './components/PostFiltersForm';
 import Clock from './components/Clock';
+import MagicBox from './components/MagicBox';
 
 function App() {
 	const [todoList, setTodoList] = useState([
@@ -34,7 +35,6 @@ function App() {
 				const requestUrl = `https://json-server-0703.herokuapp.com/products?${paramsString}`;
 				const response = await fetch(requestUrl);
 				const responseJSON = await response.json();
-				console.log(responseJSON);
 
 				const { data, pagination } = responseJSON;
 				setPostList(data);
@@ -94,9 +94,10 @@ function App() {
 			<PostList posts={postList} />
 			<Pagination pagination={pagination} onPageChange={handlePageChange} /> */}
 
-			<h1>React Hooks - Clock</h1>
+			{/* <h1>React Hooks - Clock</h1>
 			{showClock && <Clock />}
-			<button onClick={() => setShowClock(false)}>Hide Clock</button>
+			<button onClick={() => setShowClock(false)}>Hide Clock</button> */}
+			<MagicBox />
 		</div>
 	);
 }
