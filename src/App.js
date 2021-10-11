@@ -5,6 +5,7 @@ import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 import PostList from './components/PostList';
 import Pagination from './components/Pagination';
+import PostFiltersForm from './components/PostFiltersForm';
 
 function App() {
 	const [todoList, setTodoList] = useState([
@@ -21,7 +22,7 @@ function App() {
 
 	const [filters, setFilters] = useState({
 		_page: 1,
-		_limit: 10,
+		_limit: 5,
 	});
 
 	const [postList, setPostList] = useState([]);
@@ -29,7 +30,7 @@ function App() {
 		async function fetchPostList() {
 			try {
 				const paramsString = queryString.stringify(filters);
-				const requestUrl = `http://js-post-api.herokuapp.com/api/posts?${paramsString}`;
+				const requestUrl = `https://json-server-0703.herokuapp.com/products?${paramsString}`;
 				const response = await fetch(requestUrl);
 				const responseJSON = await response.json();
 				console.log(responseJSON);
@@ -46,7 +47,6 @@ function App() {
 	}, [filters]);
 
 	function handlePageChange(newPage) {
-		console.log(newPage);
 		setFilters({
 			...filters,
 			_page: newPage,
@@ -71,6 +71,15 @@ function App() {
 		setTodoList(newTodoList);
 	}
 
+	function handleFiltersChange(newFilters) {
+		console.log('Filter: ', newFilters);
+		setFilters({
+			...filters,
+			_page: 1,
+			name_like: newFilters.searchTerm,
+		});
+	}
+
 	return (
 		<div className="app">
 			{/* <h1>React Hooks - TodoList</h1> */}
@@ -78,6 +87,7 @@ function App() {
 			<TodoList todos={todoList} onTodoClick={handleTodoClick} /> */}
 
 			<h1>React Hooks - PostList</h1>
+			<PostFiltersForm onSubmit={handleFiltersChange} />
 			<PostList posts={postList} />
 			<Pagination pagination={pagination} onPageChange={handlePageChange} />
 		</div>

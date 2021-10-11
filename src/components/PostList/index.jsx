@@ -13,7 +13,7 @@ function PostList({ posts }) {
 	return (
 		<ul className="post-list">
 			{posts.map((post) => (
-				<li key={post.id}>{post.title}</li>
+				<li key={post.id}>{post.name}</li>
 			))}
 		</ul>
 	);
